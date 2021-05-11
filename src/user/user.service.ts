@@ -1,3 +1,5 @@
+import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
@@ -9,8 +11,8 @@ export class UserService {
     return this.users;
   }
 
-  LoginUser(id: string): User {
-    const user = this.users.find((user) => user.id === parseInt(id));
+  LoginUser(id: number): User {
+    const user = this.users.find((user) => user.id === id);
 
     if (!user) {
       throw new NotFoundException(`Movie with ID ${id} not found.`);
@@ -18,18 +20,19 @@ export class UserService {
     return user;
   }
 
-  CreateUser(userData) {
+  CreateUser(userData: CreateUserDto) {
     return this.users.push({
+      id: this.users.length + 1,
       ...userData,
     });
   }
 
-  DeleteOne(id) {
+  DeleteOne(id: number) {
     this.LoginUser(id);
-    this.users = this.users.filter((user) => user.id !== parseInt(id));
+    this.users = this.users.filter((user) => user.id !== id);
   }
 
-  UpdateUser(updateData, userId) {
+  UpdateUser(updateData: UpdateUserDto, userId: number) {
     const getIdData = this.LoginUser(userId);
     this.DeleteOne(userId);
     this.users.push({ ...getIdData, ...updateData });

@@ -1,3 +1,4 @@
+import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import {
@@ -22,22 +23,22 @@ export class UserController {
 
   //id값으로 User정보 가져오기
   @Get(':id')
-  LoginUser(@Param('id') id: string): User {
+  LoginUser(@Param('id') id: number): User {
     return this.userService.LoginUser(id);
   }
 
   @Post('join')
-  CreateUser(@Body() userData) {
+  CreateUser(@Body() userData: CreateUserDto) {
     return this.userService.CreateUser(userData);
   }
 
   @Delete(':id')
-  DeleteUser(@Param('id') id: string) {
+  DeleteUser(@Param('id') id: number) {
     return this.userService.DeleteOne(id);
   }
 
   @Patch(':id')
-  UpdateUser(@Body() updateData, @Param('id') userId: string) {
+  UpdateUser(@Body() updateData, @Param('id') userId: number) {
     return this.userService.UpdateUser(updateData, userId);
   }
 }
