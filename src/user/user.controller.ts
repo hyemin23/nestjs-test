@@ -16,7 +16,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   //유저 전체 불러오기
-  @Get('loadUsers')
+  @Get()
   LoadUsers(): User[] {
     return this.userService.LoadUsers();
   }

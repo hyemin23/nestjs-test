@@ -15,7 +15,7 @@ export class UserService {
     const user = this.users.find((user) => user.id === id);
 
     if (!user) {
-      throw new NotFoundException(`Movie with ID ${id} not found.`);
+      throw new NotFoundException(`User with ID ${id} not found.`);
     }
     return user;
   }
